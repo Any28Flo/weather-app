@@ -1,11 +1,11 @@
 
 const {showMenu, askData, pause} = require( "./helpers/inquire");
-//const Searches = require("models/searches");
+const Searches = require("./models/searches");
 
 const main = async () =>{
     console.clear();
     let opt = "";
-  //  const searches = new Searches();
+    const searches = new Searches();
 
 
     do{
@@ -17,6 +17,7 @@ const main = async () =>{
                 //pido al user la ciudad a buscar
                 let city = await askData("Type the city to search");
                 //hago la peticion y despliego la opciones
+               const array_sugestions= await searches.searchCity('new');
 
                 //Selecciono una opcion
 

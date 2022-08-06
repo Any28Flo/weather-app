@@ -551,5 +551,8 @@ FodyWeavers.xsd
 ### Node moduls
 /node_modules
 
+### envs
+.env
+
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudio,webstorm

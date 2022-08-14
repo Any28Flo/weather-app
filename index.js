@@ -17,7 +17,7 @@ const main = async () =>{
                 //pido al user la ciudad a buscar
                 let city = await askData("Type the city to search");
                 //hago la peticion y despliego la opciones
-               const array_sugestions= await searches.searchCity('new');
+               const array_sugestions= await searches.searchCity( city );
 
                 //Selecciono una opcion
 

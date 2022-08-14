@@ -57,6 +57,26 @@ const pause = async() =>{
     const {enter} = await  inquirer.prompt(question)
     return enter
 }
+const menuCities = async options =>{
+    let choices = options.map( (city,index) =>{
+        let counter = `${(index + 1).toString().green}.`;
+        return {
+            value : 1,
+            name : ` ${counter}${".".green} ${city.place_name}`
+        }
+    })
+    const question = [
+
+        {
+            type : "list",
+            name : "cities_options",
+            choices
+
+        }
+    ]
+    const {cities_options} = await  inquirer.prompt(question)
+
+}
 module.exports ={
     showMenu,
     askData,

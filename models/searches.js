@@ -18,6 +18,7 @@ class Searches{
            });
             const {data}= await instance.get();
             const array_sugestions =  data?.features;
+            console.log(array_sugestions)
             return array_sugestions;
 
 

@@ -24,12 +24,15 @@ class Searches{
            });
 
             const {data}= await instance.get();
+
             const array_sugestions =  data?.features;
+
             return array_sugestions.map(city =>({
 
                    id: city.id,
                     place_name:city.place_name_es,
-                    city_coordinates:city.center
+                    lat : city.center[0],
+                    long : city.center[1]
 
             }));
 

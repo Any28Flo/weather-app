@@ -61,7 +61,7 @@ const menuCities = async options =>{
     let choices = options.map( (city,index) =>{
         let counter = `${(index + 1).toString().green}.`;
         return {
-            value : 1,
+            value : `${city.id}`,
             name : ` ${counter}${".".green} ${city.place_name}`
         }
     })
@@ -75,7 +75,6 @@ const menuCities = async options =>{
         }
     ]
     const {city} = await  inquirer.prompt(question);
-
     return city
 }
 module.exports ={

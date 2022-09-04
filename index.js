@@ -17,21 +17,24 @@ const main = async () =>{
                 //search a city
                 //pido al user la ciudad a buscar
                 let city = await askData("Type the city to search");
+
                 //hago la peticion y despliego la opciones
                const places= await searches.searchCity( city );
 
                 //Selecciono una opcion
-                let chooseCity = await menuCities(places)
+                let chooseCity = await menuCities(places);
                 // muestro los datos
+                const selectCity = places.find( place => place.id === chooseCity);
+
                 //nombre
                 //latitud
                 //longitud
                 // temperatura
                 // minima
                 //maxima
-                console.log(`City name:`);
-                console.log(`Latitude:`);
-                console.log(`Longitude:`)
+                console.log(`City name: ${selectCity.place_name}`);
+                console.log(`Latitude: ${selectCity.lat}` );
+                console.log(`Longitude: ${selectCity.long}`)
                 console.log(`Temperature`)
                 console.log(`T. max`)
                 console.log(`T. min`)

@@ -1,26 +1,37 @@
 const axios = require('axios').default;
+
 require('dotenv').config();
 
 class Searches{
-    //story = ["Bogota" , "guadalajara"] longitud máxima d 6
+
     constructor() {
         this.endpoint = process.env.ENDPOINT
+    }
+
+    get paramsMapbox(){
+        return {
+            'access_token': process.env.API_KEY,
+            'limit' : 5,
+            "language": "es"
+        }
     }
     async searchCity(search_text = ''){
 
         try{
             const instance = axios.create({
                 baseURL: `${this.endpoint}/mapbox.places/${search_text}.json`,
-                params:{
-                    "language": "es",
-                    "access_token": `${process.env.API_KEY}`
-                }
+                params: this.paramsMapbox
            });
+
             const {data}= await instance.get();
             const array_sugestions =  data?.features;
-            console.log(array_sugestions)
-            return array_sugestions;
+            return array_sugestions.map(city =>({
 
+                   id: city.id,
+                    place_name:city.place_name_es,
+                    city_coordinates:city.center
+
+            }));
 
         }catch (e) {
             console.log(e)

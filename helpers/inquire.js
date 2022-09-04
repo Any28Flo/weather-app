@@ -69,16 +69,18 @@ const menuCities = async options =>{
 
         {
             type : "list",
-            name : "cities_options",
+            name : "city",
             choices
 
         }
     ]
-    const {cities_options} = await  inquirer.prompt(question)
+    const {city} = await  inquirer.prompt(question);
 
+    return city
 }
 module.exports ={
     showMenu,
     askData,
-    pause
+    pause,
+    menuCities
 }

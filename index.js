@@ -1,18 +1,24 @@
 require("colors");
 
-
-const {showMenu, askData, pause} = require( "./helpers/inquire");
+const {showMenu, askData, pause, menuCities} = require( "./helpers/inquire");
 const Searches = require("./models/searches");
 const Weather = require("./models/weather");
 
-const {menuCities} = require("./helpers/inquire");
 const {parseToFarengheit} = require("./helpers/helpers");
+const {readFromDatabase, saveFile} = require("./helpers/dbMethods");
+const {Cities} = require("./models/cities");
 
 const main = async () =>{
     console.clear();
     let opt = "";
     const searches = new Searches();
     const weather = new Weather();
+    const cities = new Cities();
+    let placesDb = readFromDatabase();
+
+    if(placesDb){
+        cities.loadFromDatabase(placesDb)
+    }
 
     do{
         opt = await showMenu();
@@ -30,7 +36,7 @@ const main = async () =>{
                 let chooseCity = await menuCities(places);
                 // muestro los datos
                 const selectCity = places.find( place => place.id === chooseCity);
-                const weatherCity = await weather.getWeather(selectCity.lat, selectCity.long)
+                const {min,max,day} = await weather.getWeather(selectCity.lat, selectCity.long)
                 //nombre
                 //latitud
                 //longitud
@@ -40,9 +46,13 @@ const main = async () =>{
                 console.log(`${"City name:".green} ${selectCity.place_name}`);
                 console.log(`${"Latitude:".green} ${selectCity.lat}` );
                 console.log(`${"Longitude:".green} ${selectCity.long}`)
-                console.log(`${"Temperature:".green} ${ parseToFarengheit(weatherCity.day) } `)
-                console.log(`${"T. max:".green} ${weatherCity.min}`)
-                console.log(`${"T. min:".green} ${weatherCity.max}`)
+                console.log(`${"Temperature:".green} ${ parseToFarengheit(day) } `)
+                console.log(`${"T. max:".green} ${min}`)
+                console.log(`${"T. min:".green} ${max}`)
+                cities.saveCity({
+                    id: selectCity.id,
+                    name: selectCity.place_name
+                })
                 break;
             case 2:
                 //history
@@ -52,6 +62,7 @@ const main = async () =>{
                 console.log("EXIT");
                 break;
         }
+        saveFile(cities.listArr)
     await pause();
     }while (opt !== 0)
 

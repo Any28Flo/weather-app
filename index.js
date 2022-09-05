@@ -1,13 +1,18 @@
+require("colors");
+
 
 const {showMenu, askData, pause} = require( "./helpers/inquire");
 const Searches = require("./models/searches");
+const Weather = require("./models/weather");
+
 const {menuCities} = require("./helpers/inquire");
+const {parseToFarengheit} = require("./helpers/helpers");
 
 const main = async () =>{
     console.clear();
     let opt = "";
     const searches = new Searches();
-
+    const weather = new Weather();
 
     do{
         opt = await showMenu();
@@ -25,19 +30,19 @@ const main = async () =>{
                 let chooseCity = await menuCities(places);
                 // muestro los datos
                 const selectCity = places.find( place => place.id === chooseCity);
-
+                const weatherCity = await weather.getWeather(selectCity.lat, selectCity.long)
                 //nombre
                 //latitud
                 //longitud
                 // temperatura
                 // minima
                 //maxima
-                console.log(`City name: ${selectCity.place_name}`);
-                console.log(`Latitude: ${selectCity.lat}` );
-                console.log(`Longitude: ${selectCity.long}`)
-                console.log(`Temperature`)
-                console.log(`T. max`)
-                console.log(`T. min`)
+                console.log(`${"City name:".green} ${selectCity.place_name}`);
+                console.log(`${"Latitude:".green} ${selectCity.lat}` );
+                console.log(`${"Longitude:".green} ${selectCity.long}`)
+                console.log(`${"Temperature:".green} ${ parseToFarengheit(weatherCity.day) } `)
+                console.log(`${"T. max:".green} ${weatherCity.min}`)
+                console.log(`${"T. min:".green} ${weatherCity.max}`)
                 break;
             case 2:
                 //history

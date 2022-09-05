@@ -1,10 +1,10 @@
 class City {
 
     id = "";
-    name = "";
-    constructor(id, name) {
+    place_name = ""
+    constructor(id, place_name) {
         this.id = id;
-        this.name = name;
+        this.place_name = place_name;
     }
 
 

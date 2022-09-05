@@ -37,12 +37,7 @@ const main = async () =>{
                 // muestro los datos
                 const selectCity = places.find( place => place.id === chooseCity);
                 const {min,max,day} = await weather.getWeather(selectCity.lat, selectCity.long)
-                //nombre
-                //latitud
-                //longitud
-                // temperatura
-                // minima
-                //maxima
+
                 console.log(`${"City name:".green} ${selectCity.place_name}`);
                 console.log(`${"Latitude:".green} ${selectCity.lat}` );
                 console.log(`${"Longitude:".green} ${selectCity.long}`)
@@ -51,11 +46,14 @@ const main = async () =>{
                 console.log(`${"T. min:".green} ${max}`)
                 cities.saveCity({
                     id: selectCity.id,
-                    name: selectCity.place_name
+                    place_name: selectCity.place_name
                 })
                 break;
             case 2:
                 //history
+                cities.list();
+
+
                 break
             case 3:
                 //exit

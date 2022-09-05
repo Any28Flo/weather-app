@@ -21,10 +21,13 @@ class Cities {
         })
     }
     saveCity( city ){
-        console.log(city)
-
-        let newRegister = new City(city.id,city.name);
+        let newRegister = new City(city.id,city.place_name);
         this._cities[city.id] = newRegister;
+    }
+    list(){
+        this.listArr.forEach((city, index) =>{
+            console.log ( `${index+1}.- ${city.place_name} `)
+        })
     }
 }
 module.exports = {Cities}
